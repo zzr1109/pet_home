@@ -1,0 +1,125 @@
+:root {
+  --accent-200: #005100;
+}
+// 图片上传样式
+.avatar-uploader .el-upload {
+  border: 1px dashed black;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+// 鼠标移入放大
+.xw-enlarge {
+  &:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+  }
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  text-align: center;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+
+blockquote,body,button,dd,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,hr,input,legend,li,ol,p,pre,td,textarea,th,ul {
+  margin: 0;
+  padding: 0
+}
+
+body,button,input,select,textarea {
+  font: 12px/1.5 tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif
+}
+address,cite,dfn,em,var {
+  font-style: normal
+}
+
+code,kbd,pre,samp {
+  font-family: courier new,courier,monospace
+}
+
+small {
+  font-size: 12px
+}
+
+ol,ul {
+  list-style: none
+}
+
+a {
+  text-decoration: none
+}
+
+a:hover {
+  text-decoration: underline
+}
+
+sup {
+  vertical-align: text-top
+}
+
+sub {
+  vertical-align: text-bottom
+}
+
+legend {
+  color: #000
+}
+
+fieldset,img {
+  border: 0
+}
+
+button,input,select,textarea {
+  font-size: 100%
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0
+}
+/*如果需要隐藏滚动条样式 则在标签上 加上 class = hiddenScrollbar*/
+.hiddenScrollbar::-webkit-scrollbar,
+.hiddenScrollbar::-webkit-scrollbar-thumb,
+.hiddenScrollbar::-webkit-scrollbar-track {
+  display: none;
+  margin-top: -1px;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+.card {
+  padding: 15px;
+  border: .5px solid #CECDCD;
+  border-radius: 5px;
+  line-height: 22px;
+  color: #454545;
+  display: flex;
+  justify-content: space-between;
+  .cardDetail {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between
+  }
+}
+
+.el-carousel__indicators--horizontal {
+  display: none;
+}
+

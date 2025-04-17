@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xw.dao.RolesDao">
+
+    <!--roles的映射结果集-->
+    <resultMap type="com.xw.entity.Roles" id="RolesMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--全部字段-->
+    <sql id="allColumn">
+        id
+        ,
+         name,
+         remark
+    </sql>
+
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="name != null and name != ''">
+            name,
+        </if>
+        <if test="remark != null and remark != ''">
+            remark,
+        </if>
+    </sql>
+
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="name != null and name != ''">
+            #{name},
+        </if>
+        <if test="remark != null and remark != ''">
+            #{remark},
+        </if>
+    </sql>
+
+    <!--修改-->
+    <sql id="updateValue">
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="remark != null and remark != ''">
+            remark = #{remark},
+        </if>
+    </sql>
+
+    <!--通用对Roles各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="name != null and name != ''">
+            and name = #{name}
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark = #{remark}
+        </if>
+    </sql>
+
+    <!--新增roles:哪个字段不为空就添加哪列数据,返回自增主键-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into roles
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+
+    <!--删除roles:通过主键-->
+    <delete id="deleteById">
+        delete from roles
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+
+    <delete id="deleteBatchByIds">
+        <if test="ids != null and ids.size() > 0">
+            delete from roles
+            where id in
+            <foreach collection="ids" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+    </delete>
+
+    <!--查询单个roles-->
+    <select id="queryById" resultMap="RolesMap">
+        select
+        <include refid="allColumn"></include>
+        from roles
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+
+    <!--查询所有roles-->
+    <select id="queryAllByLimit" resultMap="RolesMap">
+        select
+        <include refid="allColumn"></include>
+        from roles
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RolesMap">
+        select
+        <include refid="allColumn"></include>
+        from roles
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        ORDER BY id DESC
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryByAll" resultMap="RolesMap">
+        select
+        <include refid="allColumn"></include>
+        from roles
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update roles
+        <set>
+            <include refid="updateValue"></include>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+</mapper>
+

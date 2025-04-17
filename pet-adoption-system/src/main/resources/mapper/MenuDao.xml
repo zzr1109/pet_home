@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xw.dao.MenuDao">
+
+    <!--menu的映射结果集-->
+    <resultMap type="com.xw.entity.Menu" id="MenuMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="path" column="path" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="filePath" column="file_path" jdbcType="VARCHAR"/>
+        <result property="isToken" column="is_token" jdbcType="INTEGER"/>
+        <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
+        <result property="isShowMenu" column="is_show_menu" jdbcType="INTEGER"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--全部字段-->
+    <sql id="allColumn">
+        id
+        ,
+         path,
+         name,
+         file_path,
+         is_token,
+         menu_name,
+         is_show_menu,
+         sort,
+         parent_id,
+         icon
+    </sql>
+
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="path != null and path != ''">
+            path,
+        </if>
+        <if test="name != null and name != ''">
+            name,
+        </if>
+        <if test="filePath != null and filePath != ''">
+            file_path,
+        </if>
+        <if test="isToken != null">
+            is_token,
+        </if>
+        <if test="menuName != null and menuName != ''">
+            menu_name,
+        </if>
+        <if test="isShowMenu != null">
+            is_show_menu,
+        </if>
+        <if test="sort != null">
+            sort,
+        </if>
+        <if test="parentId != null">
+            parent_id,
+        </if>
+        <if test="icon != null and icon != ''">
+            icon,
+        </if>
+    </sql>
+
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="path != null and path != ''">
+            #{path},
+        </if>
+        <if test="name != null and name != ''">
+            #{name},
+        </if>
+        <if test="filePath != null and filePath != ''">
+            #{filePath},
+        </if>
+        <if test="isToken != null">
+            #{isToken},
+        </if>
+        <if test="menuName != null and menuName != ''">
+            #{menuName},
+        </if>
+        <if test="isShowMenu != null">
+            #{isShowMenu},
+        </if>
+        <if test="sort != null">
+            #{sort},
+        </if>
+        <if test="parentId != null">
+            #{parentId},
+        </if>
+        <if test="icon != null and icon != ''">
+            #{icon},
+        </if>
+    </sql>
+
+    <!--修改-->
+    <sql id="updateValue">
+            path = #{path},
+            name = #{name},
+            file_path = #{filePath},
+        <if test="isToken != null">
+            is_token = #{isToken},
+        </if>
+        <if test="menuName != null and menuName != ''">
+            menu_name = #{menuName},
+        </if>
+        <if test="isShowMenu != null">
+            is_show_menu = #{isShowMenu},
+        </if>
+        <if test="sort != null">
+            sort = #{sort},
+        </if>
+        <if test="parentId != null">
+            parent_id = #{parentId},
+        </if>
+        <if test="icon != null and icon != ''">
+            icon = #{icon},
+        </if>
+    </sql>
+
+    <!--通用对Menu各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="path != null and path != ''">
+            and path = #{path}
+        </if>
+        <if test="name != null and name != ''">
+            and name = #{name}
+        </if>
+        <if test="filePath != null and filePath != ''">
+            and file_path = #{filePath}
+        </if>
+        <if test="isToken != null">
+            and is_token = #{isToken}
+        </if>
+        <if test="menuName != null and menuName != ''">
+            and menu_name = #{menuName}
+        </if>
+        <if test="isShowMenu != null">
+            and is_show_menu = #{isShowMenu}
+        </if>
+        <if test="sort != null">
+            and sort = #{sort}
+        </if>
+        <if test="parentId != null">
+            and parent_id = #{parentId}
+        </if>
+        <if test="icon != null and icon != ''">
+            and icon = #{icon}
+        </if>
+
+        <if test="menuIds != null and menuIds.size() > 0">
+            and id in
+            <foreach collection="menuIds" open="(" close=")" separator="," item="item">
+                #{item}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--新增menu:哪个字段不为空就添加哪列数据,返回自增主键-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+
+    <!--删除menu:通过主键-->
+    <delete id="deleteById">
+        delete from menu
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+
+    <delete id="deleteBatchByIds">
+        <if test="ids != null and ids.size() > 0">
+            delete from menu
+            where id in
+            <foreach collection="ids" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+    </delete>
+
+    <!--查询单个menu-->
+    <select id="queryById" resultMap="MenuMap">
+        select
+        <include refid="allColumn"></include>
+        from menu
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+
+    <!--查询所有menu-->
+    <select id="queryAllByLimit" resultMap="MenuMap">
+        select
+        <include refid="allColumn"></include>
+        from menu
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MenuMap">
+        select
+        <include refid="allColumn"></include>
+        from menu
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        ORDER BY id DESC
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryByAll" resultMap="MenuMap">
+        select
+        <include refid="allColumn"></include>
+        from menu
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+    </select>
+
+    <select id="queryParentMenu" resultMap="MenuMap">
+        select
+        <include refid="allColumn"></include>
+        from menu where parent_id is null and path is null
+    </select>
+
+    <select id="menuChildrenList" resultMap="MenuMap">
+        select
+        <include refid="allColumn"></include>
+        from menu where name is not null
+        <if test="menuName != null and menuName != ''">
+            and menu_name like concat('%',#{menuName},'%')
+        </if>
+        <if test="menuIds != null and menuIds.size() > 0">
+            and id in
+            <foreach collection="menuIds" open="(" close=")" separator="," item="item">
+                #{item}
+            </foreach>
+        </if>
+        order by sort
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update menu
+        <set>
+            <include refid="updateValue"></include>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+</mapper>
+

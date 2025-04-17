@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xw.dao.UserRoleDao">
+
+    <!--user_role的映射结果集-->
+    <resultMap type="com.xw.entity.UserRole" id="UserRoleMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--全部字段-->
+    <sql id="allColumn">
+        id
+        ,
+         user_id,
+         role_id
+    </sql>
+
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="roleId != null">
+            role_id,
+        </if>
+    </sql>
+
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="roleId != null">
+            #{roleId},
+        </if>
+    </sql>
+
+    <!--修改-->
+    <sql id="updateValue">
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="roleId != null">
+            role_id = #{roleId},
+        </if>
+    </sql>
+
+    <!--通用对UserRole各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="roleId != null">
+            and role_id = #{roleId}
+        </if>
+    </sql>
+
+    <!--新增user_role:哪个字段不为空就添加哪列数据,返回自增主键-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into user_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+
+    <!--删除user_role:通过主键-->
+    <delete id="deleteById">
+        delete from user_role
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+
+    <delete id="deleteBatchByIds">
+        <if test="ids != null and ids.size() > 0">
+            delete from user_role
+            where id in
+            <foreach collection="ids" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+    </delete>
+
+    <!--查询单个user_role-->
+    <select id="queryById" resultMap="UserRoleMap">
+        select
+        <include refid="allColumn"></include>
+        from user_role
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+
+    <!--查询所有user_role-->
+    <select id="queryAllByLimit" resultMap="UserRoleMap">
+        select
+        <include refid="allColumn"></include>
+        from user_role
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserRoleMap">
+        select
+        <include refid="allColumn"></include>
+        from user_role
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        ORDER BY id DESC
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryByAll" resultMap="UserRoleMap">
+        select
+        <include refid="allColumn"></include>
+        from user_role
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update user_role
+        <set>
+            <include refid="updateValue"></include>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+</mapper>
+

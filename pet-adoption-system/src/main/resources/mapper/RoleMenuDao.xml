@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xw.dao.RoleMenuDao">
+
+    <!--role_menu的映射结果集-->
+    <resultMap type="com.xw.entity.RoleMenu" id="RoleMenuMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+        <result property="menuId" column="menu_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--全部字段-->
+    <sql id="allColumn">
+        id
+        ,
+         role_id,
+         menu_id
+    </sql>
+
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="roleId != null">
+            role_id,
+        </if>
+        <if test="menuId != null">
+            menu_id,
+        </if>
+    </sql>
+
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="roleId != null">
+            #{roleId},
+        </if>
+        <if test="menuId != null">
+            #{menuId},
+        </if>
+    </sql>
+
+    <!--修改-->
+    <sql id="updateValue">
+        <if test="roleId != null">
+            role_id = #{roleId},
+        </if>
+        <if test="menuId != null">
+            menu_id = #{menuId},
+        </if>
+    </sql>
+
+    <!--通用对RoleMenu各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="roleId != null">
+            and role_id = #{roleId}
+        </if>
+        <if test="menuId != null">
+            and menu_id = #{menuId}
+        </if>
+        <if test="menuIds != null and menuIds.size() > 0">
+            and menu_id in
+            <foreach collection="menuIds" open="(" close=")" separator="," item="item">
+                #{item}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--新增role_menu:哪个字段不为空就添加哪列数据,返回自增主键-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into role_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+
+    <!--删除role_menu:通过主键-->
+    <delete id="deleteById">
+        delete from role_menu
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+
+    <delete id="deleteBatchByIds">
+        <if test="ids != null and ids.size() > 0">
+            delete from role_menu
+            where id in
+            <foreach collection="ids" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+    </delete>
+
+    <!--查询单个role_menu-->
+    <select id="queryById" resultMap="RoleMenuMap">
+        select
+        <include refid="allColumn"></include>
+        from role_menu
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+
+    <!--查询所有role_menu-->
+    <select id="queryAllByLimit" resultMap="RoleMenuMap">
+        select
+        <include refid="allColumn"></include>
+        from role_menu
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RoleMenuMap">
+        select
+        <include refid="allColumn"></include>
+        from role_menu
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        ORDER BY id DESC
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryByAll" resultMap="RoleMenuMap">
+        select
+        <include refid="allColumn"></include>
+        from role_menu
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update role_menu
+        <set>
+            <include refid="updateValue"></include>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+</mapper>
+

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xw.dao.UserDao">
+    <!--    结果集映射-->
+    <resultMap id="UserMap" type="com.xw.entity.User">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="imageUrl" column="image_url" jdbcType="VARCHAR"/>
+        <result property="role" column="role" jdbcType="VARCHAR"/>
+        <result property="applyStatus" column="apply_status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="allColumn">
+        id,user_name,password,nick_name,email,age,phone,image_url,`role`,apply_status
+    </sql>
+
+    <sql id="insertColumn">
+        <if test="userName != null and userName != ''">
+            user_name,
+        </if>
+        <if test="password != null and password != ''">
+            password,
+        </if>
+        <if test="nickName != null and nickName != ''">
+            nick_name,
+        </if>
+        <if test="email != null and email != ''">
+            email,
+        </if>
+        <if test="age != null and age != ''">
+            age,
+        </if>
+        <if test="phone != null and phone != ''">
+            phone,
+        </if>
+        <if test="imageUrl != null and imageUrl != ''">
+            image_url,
+        </if>
+        <if test="role != null and role != ''">
+            role,
+        </if>
+        <if test="applyStatus != null and applyStatus != ''">
+            apply_status,
+        </if>
+    </sql>
+
+    <sql id="insertValue">
+        <if test="userName != null and userName != ''">
+            #{userName},
+        </if>
+        <if test="password != null and password != ''">
+            #{password},
+        </if>
+        <if test="nickName != null and nickName != ''">
+            #{nickName},
+        </if>
+        <if test="email != null and email != ''">
+            #{email},
+        </if>
+        <if test="age != null and age != ''">
+            #{age},
+        </if>
+        <if test="phone != null and phone != ''">
+            #{phone},
+        </if>
+        <if test="imageUrl != null and imageUrl != ''">
+            #{imageUrl},
+        </if>
+        <if test="role != null and role != ''">
+            #{role},
+        </if>
+        <if test="applyStatus != null and applyStatus != ''">
+            #{applyStatus},
+        </if>
+    </sql>
+
+    <sql id="updateValue">
+        <if test="userName != null and userName != ''">
+            user_name = #{userName},
+        </if>
+        <if test="password != null and password != ''">
+            password = #{password},
+        </if>
+        <if test="nickName != null and nickName != ''">
+            nick_name = #{nickName},
+        </if>
+        <if test="email != null and email != ''">
+            email = #{email},
+        </if>
+        <if test="age != null and age != ''">
+            age = #{age},
+        </if>
+        <if test="phone != null and phone != ''">
+            phone = #{phone},
+        </if>
+        <if test="imageUrl != null and imageUrl != ''">
+            image_url = #{imageUrl},
+        </if>
+        <if test="role != null and role != ''">
+            role = #{role},
+        </if>
+        <if test="applyStatus != null and applyStatus != ''">
+            apply_status = #{applyStatus},
+        </if>
+    </sql>
+
+    <sql id="commonsValue">
+        <if test="userName != null and userName != ''">
+            and user_name = #{userName}
+        </if>
+        <if test="password != null and password != ''">
+            and password = #{password}
+        </if>
+        <if test="nickName != null and nickName != ''">
+            and nick_name like concat('%',#{nickName},'%')
+        </if>
+        <if test="email != null and email != ''">
+            and email = #{email}
+        </if>
+        <if test="age != null and age != ''">
+            and age = #{age}
+        </if>
+        <if test="phone != null and phone != ''">
+            and = #{phone}
+        </if>
+        <if test="role != null and role != ''">
+            and `role` = #{role}
+        </if>
+        <if test="applyStatus != null and applyStatus != ''">
+            apply_status = #{applyStatus}
+        </if>
+
+        <if test="ids != null and ids.size() > 0">
+            and id in
+            <foreach collection="ids" open="(" close=")" separator="," item="item">
+                #{item}
+            </foreach>
+        </if>
+    </sql>
+
+    <select id="selectAll" resultMap="UserMap">
+        select
+        <include refid="allColumn"></include>
+        from user
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        order by id desc
+    </select>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"></include>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"></include>
+        </trim>
+    </insert>
+
+    <update id="updateById">
+        update user
+        <set>
+            <include refid="updateValue"></include>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <select id="selectById" resultMap="UserMap">
+        select
+        <include refid="allColumn"></include>
+        from user
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <select id="selectByUserNameAndPassword" resultMap="UserMap">
+        select
+        <include refid="allColumn"></include>
+        from user
+        <where>
+            user_name = #{userName} and password = #{password}
+        </where>
+    </select>
+
+    <delete id="deleteById">
+        delete from user
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+
+    <delete id="deleteBatchByIds">
+        <if test="ids != null and ids.size() > 0">
+            delete from user
+            where id in <foreach collection="ids" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        </if>
+    </delete>
+</mapper>

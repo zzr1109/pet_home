@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xw.dao.IconDao">
+
+    <!--icon的映射结果集-->
+    <resultMap type="com.xw.entity.Icon" id="IconMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="value" column="value" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--全部字段-->
+    <sql id="allColumn">
+        id
+        ,
+         value
+    </sql>
+
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="value != null and value != ''">
+            value,
+        </if>
+    </sql>
+
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="value != null and value != ''">
+            #{value},
+        </if>
+    </sql>
+
+    <!--修改-->
+    <sql id="updateValue">
+        <if test="value != null and value != ''">
+            value = #{value},
+        </if>
+    </sql>
+
+    <!--通用对Icon各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="value != null and value != ''">
+            and value = #{value}
+        </if>
+    </sql>
+
+    <!--新增icon:哪个字段不为空就添加哪列数据,返回自增主键-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into icon
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+
+    <!--删除icon:通过主键-->
+    <delete id="deleteById">
+        delete from icon
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+
+    <delete id="deleteBatchByIds">
+        <if test="ids != null and ids.size() > 0">
+            delete from icon
+            where id in
+            <foreach collection="ids" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+    </delete>
+
+    <!--查询单个icon-->
+    <select id="queryById" resultMap="IconMap">
+        select
+        <include refid="allColumn"></include>
+        from icon
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+
+    <!--查询所有icon-->
+    <select id="queryAllByLimit" resultMap="IconMap">
+        select
+        <include refid="allColumn"></include>
+        from icon
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="IconMap">
+        select
+        <include refid="allColumn"></include>
+        from icon
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        ORDER BY id DESC
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryByAll" resultMap="IconMap">
+        select
+        <include refid="allColumn"></include>
+        from icon
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update icon
+        <set>
+            <include refid="updateValue"></include>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+</mapper>
+

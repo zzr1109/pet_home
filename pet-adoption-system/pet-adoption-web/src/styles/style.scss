@@ -1,0 +1,215 @@
+:root {
+  --primary-100:#FFC107;
+  --primary-200:#dda400;
+  --primary-300:#916400;
+  --accent-100:#4CAF50;
+  --accent-200:#005100;
+  --text-100:#333333;
+  --text-200:#5c5c5c;
+  --bg-100:#F5F5F5;
+  --bg-200:#ebebeb;
+  --bg-300:#c2c2c2;
+
+
+
+  //// el-card
+  //// 背景色
+  //--el-fill-color-blank: var(--bg-300);
+  //// 字体色
+  //--el-text-color-primary: var(--text-200);
+  //
+  //// el-table
+  //// 表格背景色
+  //--el-bg-color: var(--bg-300);
+  //// 表格每一行鼠标移入色
+  //--el-fill-color-light: var(--bg-200);
+  //// 表格字体颜色
+  //--el-text-color-regular: var(--text-200)
+  --el-menu-bg-color: var(--bg-100);
+  --el-color-primary: var(--primary-100);
+  --el-color-primary-light-3: var(--primary-200);
+  --el-color-primary-light-5: var(--primary-300);
+  --el-color-primary-light-7: var(--primary-300);
+  --el-color-primary-light-8: var(--primary-300);
+  --el-color-primary-light-9: var(--primary-300);
+  --el-color-primary-dark-2: rgb(51.2, 126.4, 204);
+  --el-color-success: #67c23a;
+  --el-color-success-light-3: var(--accent-100);
+  --el-color-success-light-5: var(--accent-200);
+  --el-color-success-light-7: var(--accent-200);
+  --el-color-success-light-8: var(--accent-200);
+  --el-color-success-light-9: var(--accent-200);
+  --el-color-success-dark-2: rgb(82.4, 155.2, 46.4);
+  --el-color-warning: #e6a23c;
+  --el-color-warning-light-3: rgb(237.5, 189.9, 118.5);
+  --el-color-warning-light-5: rgb(242.5, 208.5, 157.5);
+  --el-color-warning-light-7: rgb(247.5, 227.1, 196.5);
+  --el-color-warning-light-8: rgb(250, 236.4, 216);
+  --el-color-warning-light-9: rgb(252.5, 245.7, 235.5);
+  --el-color-warning-dark-2: rgb(184, 129.6, 48);
+  --el-color-danger: #f56c6c;
+  --el-color-danger-light-3: rgb(248, 152.1, 152.1);
+  --el-color-danger-light-5: rgb(250, 181.5, 181.5);
+  --el-color-danger-light-7: rgb(252, 210.9, 210.9);
+  --el-color-danger-light-8: rgb(253, 225.6, 225.6);
+  --el-color-danger-light-9: rgb(254, 240.3, 240.3);
+  --el-color-danger-dark-2: rgb(196, 86.4, 86.4);
+  --el-color-error: #f56c6c;
+  --el-color-error-light-3: rgb(248, 152.1, 152.1);
+  --el-color-error-light-5: rgb(250, 181.5, 181.5);
+  --el-color-error-light-7: rgb(252, 210.9, 210.9);
+  --el-color-error-light-8: rgb(253, 225.6, 225.6);
+  --el-color-error-light-9: rgb(254, 240.3, 240.3);
+  --el-color-error-dark-2: rgb(196, 86.4, 86.4);
+  --el-color-info: #909399;
+  --el-color-info-light-3: rgb(177.3, 179.4, 183.6);
+  --el-color-info-light-5: rgb(199.5, 201, 204);
+  --el-color-info-light-7: rgb(221.7, 222.6, 224.4);
+  --el-color-info-light-8: rgb(232.8, 233.4, 234.6);
+  --el-color-info-light-9: rgb(243.9, 244.2, 244.8);
+  --el-color-info-dark-2: rgb(115.2, 117.6, 122.4);
+  --el-bg-color: var(--bg-200);
+  --el-bg-color-page: var(--bg-100);
+  --el-bg-color-overlay: var(--bg-300);
+  --el-text-color-primary: var(--text-200);
+  --el-text-color-regular: var(--text-200);
+  --el-text-color-secondary: var(--text-100);
+  --el-text-color-placeholder: var(--text-200);
+  --el-text-color-disabled: var(--text-100);
+
+  --el-border-color: var(--bg-300);
+  --el-border-color-light: var(--bg-300);
+  --el-border-color-lighter: var(--bg-300);
+  --el-border-color-extra-light: var(--bg-300);
+  --el-border-color-dark: var(--bg-300);
+  --el-border-color-darker: var(--bg-300);
+  --el-fill-color: var(--primary-100);
+  --el-fill-color-light: var(--primary-200);
+  --el-fill-color-lighter: var(--primary-200);
+  --el-fill-color-extra-light: var(--primary-200);
+  --el-fill-color-dark: #ebedf0;
+  --el-fill-color-darker: #e6e8eb;
+  --el-fill-color-blank: var(--primary-100);
+  --el-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.04), 0px 8px 20px rgba(0, 0, 0, 0.08);
+  --el-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, 0.12);
+  --el-box-shadow-lighter: 0px 0px 6px rgba(0, 0, 0, 0.12);
+  --el-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, 0.08), 0px 12px 32px rgba(0, 0, 0, 0.12), 0px 8px 16px -8px rgba(0, 0, 0, 0.16);
+  --el-disabled-bg-color: var(--el-fill-color-light);
+  --el-disabled-text-color: var(--el-text-color-placeholder);
+  --el-disabled-border-color: var(--el-border-color-light);
+  --el-overlay-color: rgba(0, 0, 0, 0.8);
+  --el-overlay-color-light: rgba(0, 0, 0, 0.7);
+  --el-overlay-color-lighter: rgba(0, 0, 0, 0.5);
+  --el-mask-color: rgba(255, 255, 255, 0.9);
+  --el-mask-color-extra-light: rgba(255, 255, 255, 0.3);
+  --el-border-width: 1px;
+  --el-border-style: solid;
+  --el-border-color-hover: var(--el-text-color-disabled);
+  --el-border: var(--el-border-width) var(--el-border-style) var(--el-border-color);
+  --el-svg-monochrome-grey: var(--el-border-color);
+  --el-pagination-hover-color: var(--text-100);
+}
+
+body {
+  background-color: var(--bg-100);
+  margin: 0 !important;
+  padding: 0;
+  //font-family: "字帮玩酷体";
+  overflow-y: hidden;
+}
+
+.el-pager li.is-active {
+  color: var(--text-100) !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.el-card {
+  background-color: var(--bg-200) !important;
+}
+
+.el-input__wrapper {
+  background-color: var(--bg-200) !important;
+}
+
+.el-select__wrapper {
+  background-color: var(--bg-200) !important;
+}
+
+/*如果需要隐藏滚动条样式 则在标签上 加上 class = hiddenScrollbar*/
+.hiddenScrollbar::-webkit-scrollbar,
+.hiddenScrollbar::-webkit-scrollbar-thumb,
+.hiddenScrollbar::-webkit-scrollbar-track {
+  display: none;
+  margin-top: -1px;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+// 鼠标移入放大
+.xw-enlarge {
+  &:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+  }
+}
+
+.el-page-header__title {
+  color: var(--text-200);
+}
+
+.menu-icon {
+  display: block;
+  background-color: var(--primary-100);
+  padding: 3px;
+  border-radius: 3px;
+  margin: 0;
+  height: min-content;
+}
+
+.xw-block {
+  margin-top: 10px;
+}
+
+.el-table {
+  margin-top: 10px;
+}
+
+// 图片上传样式
+.avatar-uploader .el-upload {
+  border: 1px dashed var(--accent-100);
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  text-align: center;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+
+.el-menu-item.is-active i {
+  color: var(--accent-100);
+}
+
+
+
