@@ -6,7 +6,7 @@ import {hexToRgb} from "@/utils/ColorUtil.js";
 const http = {}
 
 export const baseURL = function () {
-    return "http://localhost:16667";
+    return "http://localhost:6677";
 }
 
 // 获取缓存内的用户信息

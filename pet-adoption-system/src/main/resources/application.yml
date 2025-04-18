@@ -1,6 +1,6 @@
 # 端口
 server:
-  port: 16667
+  port: 6677
 # 配置mybatis
 mybatis:
   # 打印SQL
