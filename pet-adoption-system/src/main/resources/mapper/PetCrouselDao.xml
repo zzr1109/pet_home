@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xw.dao.PetCrouselDao">
+    <!-- 定义结果映射，将数据库字段映射到实体类的属性 -->
+    <resultMap type="com.xw.entity.PetCrousel" id="dataMap">
+        <result property="id" column="id" jdbcType="INTEGER"/> <!-- 数据库字段 id 映射到实体类的 id 属性 -->
+        <result property="imageUrlList" column="image_url_list"/> <!-- 数据库字段 image_url_list 映射到实体类的 imageUrlList 属性 -->
+        <result property="showStatus" column="show_Status"/> <!-- 数据库字段 show_status 映射到实体类的 showStatus 属性 -->
+    </resultMap>
+
+    <!-- 定义 SQL 片段，用于查询所有字段 -->
+    <sql id="allColumn">
+        id,image_url_list,show_status
+    </sql>
+
+    <!-- 定义插入语句的字段列表 -->
+    <sql id="insertColumn">
+        <if test="imageUrlList != null and imageUrlList !=''">
+            image_url_list, <!-- 如果 imageUrlList 不为空，则包含该字段 -->
+        </if>
+        <if test="showStatus != null">
+            showStatus, <!-- 如果 showStatus 不为空，则包含该字段 -->
+        </if>
+    </sql>
+
+    <!-- 定义插入语句的值列表 -->
+    <sql id="insertValue">
+        <if test="imageUrlList != null and imageUrlList !=''">
+            #{imageUrlList}, <!-- 如果 imageUrlList 不为空，则包含该值 -->
+        </if>
+        <if test="showStatus != null">
+            #{showStatus}, <!-- 如果 showStatus 不为空，则包含该值 -->
+        </if>
+    </sql>
+
+    <!-- 定义更新语句的字段列表 -->
+    <sql id="updateValue">
+        <if test="imageUrlList != null and imageUrlList !=''">
+            image_url_list=#{imageUrlList}, <!-- 如果 imageUrlList 不为空，则更新该字段 -->
+        </if>
+        <if test="showStatus != null">
+            show_status=#{showStatus}, <!-- 如果 showStatus 不为空，则更新该字段 -->
+        </if>
+    </sql>
+
+    <!-- 定义查询语句的条件 -->
+    <sql id="commonsValue">
+        <if test="imageUrlList != null and imageUrlList !=''">
+            and image_url_list=#{imageUrlList} <!-- 如果 imageUrlList 不为空，则添加该条件 -->
+        </if>
+        <if test="showStatus != null">
+            and show_status=#{showStatus} <!-- 如果 showStatus 不为空，则添加该条件 -->
+        </if>
+    </sql>
+
+    <!-- 插入操作 -->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into pet_crousel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"></include> <!-- 插入字段 -->
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"></include> <!-- 插入值 -->
+        </trim>
+    </insert>
+
+    <!-- 根据 ID 删除操作 -->
+    <delete id="deleteById">
+        delete from pet_crousel
+        <where>
+            id=#{id} <!-- 删除指定 ID 的记录 -->
+        </where>
+    </delete>
+
+    <!-- 批量删除操作 -->
+    <delete id="deleteBatchByIds">
+        <if test="ids != null and ids.size()>0">
+            delete from pet_crousel
+            where id in <foreach collection="ids" separator="," open="(" close=")" item="item">#{item}</foreach> <!-- 删除指定 ID 列表的记录 -->
+        </if>
+    </delete>
+
+    <!-- 根据 ID 查询操作 -->
+    <select id="queryById" resultMap="dataMap">
+        select <include refid="allColumn"></include> from pet_crousel where id = #{id} <!-- 查询指定 ID 的记录 -->
+    </select>
+
+    <!-- 查询所有记录 -->
+    <select id="queryAll" resultMap="dataMap">
+        select <include refid="allColumn"></include> from pet_crousel
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include> <!-- 添加查询条件 -->
+        </trim>
+        order by id desc <!-- 按 ID 降序排列 -->
+    </select>
+
+    <!-- 根据条件查询所有记录 -->
+    <select id="queryByAll" resultMap="dataMap">
+        select <include refid="allColumn"></include> from pet_crousel
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include> <!-- 添加查询条件 -->
+        </trim>
+        order by id desc <!-- 按 ID 降序排列 -->
+    </select>
+
+    <!-- 根据 ID 更新操作 -->
+    <update id="updateById">
+        update pet_crousel
+        <set>
+            <include refid="updateValue"></include> <!-- 更新字段 -->
+        </set>
+        <where>
+            id = #{id} <!-- 更新指定 ID 的记录 -->
+        </where>
+    </update>
+
+    <!-- 更新实体操作 -->
+    <update id="updateEntity">
+        update pet_crousel
+        set image_url_list = #{imageUrlList},show_status = #{showStatus} <!-- 更新指定字段 -->
+        <where>
+            id = #{id} <!-- 更新指定 ID 的记录 -->
+        </where>
+    </update>
+</mapper>
