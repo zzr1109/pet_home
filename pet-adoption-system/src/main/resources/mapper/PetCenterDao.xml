@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xw.dao.PetCenterDao">
+    <resultMap id="dataMap" type="com.xw.entity.PetCenter">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="imageUrlList" column="image_url_list"/>
+        <result property="petCategoryId" column="pet_category_id"/>
+        <result property="petCategoryName" column="pet_category_name"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="adoptionStatus" column="adoption_status"/>
+        <result property="petName" column="pet_name"/>
+        <result property="petSex" column="pet_sex"/>
+        <result property="petAge" column="pet_age"/>
+        <result property="petRemark" column="pet_remark"/>
+    </resultMap>
+
+    <sql id="allColumn">
+        id,image_url_list,pet_category_id,pet_category_name,user_id,user_name,create_time,adoption_status,pet_name,pet_sex,pet_age,pet_remark
+    </sql>
+
+    <!--添加语句的字段列表 insert into xxx set (image_url_list,show_status) values (#{xxxx},#{xxx})-->
+    <sql id="insertColumn">
+        <if test="imageUrlList != null and imageUrlList != ''">
+            image_url_list,
+        </if>
+        <if test="petCategoryId != null">
+            pet_category_id,
+        </if>
+        <if test="petCategoryName != null and petCategoryName != ''">
+            pet_category_name,
+        </if>
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="userName != null and userName != ''">
+            user_name,
+        </if>
+        <if test="createTime != null">
+            create_time,
+        </if>
+        <if test="adoptionStatus != null">
+            adoption_status,
+        </if>
+        <if test="petName != null and petName != ''">
+            pet_name,
+        </if>
+        <if test="petSex != null">
+            pet_sex,
+        </if>
+        <if test="petAge != null and petAge != ''">
+            pet_age,
+        </if>
+        <if test="petRemark != null and petRemark != ''">
+            pet_remark,
+        </if>
+    </sql>
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="imageUrlList != null and imageUrlList != ''">
+            #{imageUrlList},
+        </if>
+        <if test="petCategoryId != null">
+            #{petCategoryId},
+        </if>
+        <if test="petCategoryName != null and petCategoryName != ''">
+            #{petCategoryName},
+        </if>
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="userName != null and userName != ''">
+            #{userName},
+        </if>
+        <if test="createTime != null">
+            #{createTime},
+        </if>
+        <if test="adoptionStatus != null">
+            #{adoptionStatus},
+        </if>
+        <if test="petName != null and petName != ''">
+            #{petName},
+        </if>
+        <if test="petSex != null">
+            #{petSex},
+        </if>
+        <if test="petAge != null and petAge != ''">
+            #{petAge},
+        </if>
+        <if test="petRemark != null and petRemark != ''">
+            #{petRemark},
+        </if>
+    </sql>
+
+    <!--修改语句的字段列表 update xxx image_url_list = #{xxx} where id = #{}-->
+    <sql id="updateValue">
+        <if test="imageUrlList != null and imageUrlList != ''">
+            image_url_list = #{imageUrlList},
+        </if>
+        <if test="petCategoryId != null">
+            pet_category_id = #{petCategoryId},
+        </if>
+        <if test="petCategoryName != null and petCategoryName != ''">
+            pet_category_name = #{petCategoryName},
+        </if>
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="userName != null and userName != ''">
+            user_name = #{userName},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime},
+        </if>
+        <if test="adoptionStatus != null">
+            adoption_status = #{adoptionStatus},
+        </if>
+        <if test="petName != null and petName != ''">
+            pet_name = #{petName},
+        </if>
+        <if test="petSex != null">
+            pet_sex = #{petSex},
+        </if>
+        <if test="petAge != null and petAge != ''">
+            pet_age = #{petAge},
+        </if>
+        <if test="petRemark != null and petRemark != ''">
+            pet_remark = #{petRemark},
+        </if>
+    </sql>
+
+    <!--查询语句的字段列表 select xxx  from xx where id-->
+    <sql id="commonsValue">
+        <if test="imageUrlList != null and imageUrlList != ''">
+            and image_url_list = #{imageUrlList}
+        </if>
+        <if test="petCategoryId != null">
+            and pet_category_id = #{petCategoryId}
+        </if>
+        <if test="petCategoryName != null and petCategoryName != ''">
+            and pet_category_name = #{petCategoryName}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="userName != null and userName != ''">
+            and user_name = #{userName}
+        </if>
+        <if test="createTime != null">
+            and create_time = #{createTime}
+        </if>
+        <if test="adoptionStatus != null">
+            and adoption_status = #{adoptionStatus}
+        </if>
+        <if test="petName != null and petName != ''">
+            and pet_name = #{petName}
+        </if>
+        <if test="petSex != null">
+            and pet_sex = #{petSex}
+        </if>
+        <if test="petAge != null and petAge != ''">
+            and pet_age = #{petAge}
+        </if>
+        <if test="petRemark != null and petRemark != ''">
+            and pet_remark = #{petRemark}
+        </if>
+    </sql>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into pet_center
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"></include>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"></include>
+        </trim>
+    </insert>
+
+    <delete id="deleteById">
+        delete from pet_center
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+
+    <delete id="deleteBatchByIds">
+        <if test="ids != null and ids.size() > 0">
+            delete from pet_center
+            where id in <foreach collection="ids" separator="," open="(" close=")" item="item">#{item}</foreach>
+        </if>
+    </delete>
+
+    <select id="queryById" resultMap="dataMap">
+        select <include refid="allColumn"></include> from pet_center where id = #{id}
+    </select>
+
+    <select id="queryAll" resultMap="dataMap">
+        select <include refid="allColumn"></include> from pet_center
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        order by id desc
+    </select>
+
+    <select id="queryByAll" resultMap="dataMap">
+        select <include refid="allColumn"></include> from pet_center
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        order by id desc
+    </select>
+
+    <update id="updateById">
+        update pet_center
+        <set>
+            <include refid="updateValue"></include>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <update id="updateEntity">
+        update pet_center
+        set
+        image_url_list = #{imageUrlList},
+        pet_category_id = #{petCategoryId},
+        pet_category_name = #{petCategoryName},
+        user_id = #{userId},
+        user_name = #{userName},
+        create_time = #{createTime},
+        adoption_status = #{adoptionStatus},
+        pet_name = #{petName},
+        pet_sex = #{petSex},
+        pet_age = #{petAge},
+        pet_remark = #{petRemark}
+        <where>
+            id = #{id}
+        </where>
+    </update>
+</mapper>
