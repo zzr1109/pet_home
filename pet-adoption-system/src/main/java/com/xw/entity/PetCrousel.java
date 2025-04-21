@@ -12,4 +12,6 @@ public class PetCrousel {
     private List<String> menuImages;
     //0不显示1显示
     private  Integer showStatus;
+    public void setUserInfo(User userInfo) {
+    }
 }
