@@ -8,7 +8,12 @@ const routes = [
         name: 'webHome',
         component: () => import('../views/web/WebHome.vue'),
         children: [
-            
+            {
+                path: '/petList',
+                meta: {menuName: "主页"},
+                name: 'petList',
+                component: () => import('../views/web/Pet/PetList.vue'),
+            }
         ]
     },
 ]
@@ -31,7 +36,7 @@ router.beforeEach((to, from, next) => {
     else {
         if (!user || to.path === "/") {
             localStorage.clear()
-            next("/webHome")
+            next("/petList")
         } else {
             next();
         }
