@@ -139,5 +139,4 @@ const handleCurrentChange = (pageNum) => {
 const handleSelectionChange = (e) => {
     delIds.value = e.map(x => x.id) // 更新要删除的id数组
 }
-
 </script>
