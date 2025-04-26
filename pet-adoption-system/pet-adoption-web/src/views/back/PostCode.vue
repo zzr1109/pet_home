@@ -83,7 +83,7 @@
  import {dbImages, splicingDomain} from "@/utils/Base.js"; 
  import {ElNotification} from "element-plus"; 
 
- const pageSizeArr = ref([10, 20, 30, 40])// 定义每页显示的评论数量选项
+const pageSizeArr = ref([10, 20, 30, 40])// 定义每页显示的评论数量选项
 const total = ref(0)// 定义评论总数
 const selectRow = ref({})// 定义当前选中的评论对象
 const myDrawerRef = ref()// 创建MyDrawer组件的引用
