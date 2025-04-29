@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ae432cc-71a3-420f-8d1f-d8f30fa571f0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pet-adoption-plat/src/views/web/Pet/components/MyInfo.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pet-adoption-plat/src/views/web/Pet/components/NewReservation.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-adoption-plat/src/views/web/PetCircle/PetCircle.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-adoption-plat/src/views/web/Pet/PetList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pet-adoption-plat/src/views/web/Pet/PetList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-adoption-plat/src/components/Comment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pet-adoption-plat/src/components/Comment.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-adoption-plat/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pet-adoption-plat/src/router/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,21 +41,6 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -71,6 +56,8 @@
       <workItem from="1745239342459" duration="2465000" />
       <workItem from="1745313298770" duration="3403000" />
       <workItem from="1745855793110" duration="176000" />
+      <workItem from="1745933324515" duration="988000" />
+      <workItem from="1745939908508" duration="275000" />
     </task>
     <servers />
   </component>

@@ -13,6 +13,12 @@ const routes = [
                 meta: {menuName: "主页"},
                 name: 'petList',
                 component: () => import('../views/web/Pet/PetList.vue'),
+            },
+            {
+                path: '/petCircle',
+                meta: {menuName: "宠物圈"},
+                name: 'petCircle',
+                component: () => import('../views/web/PetCircle/PetCircle.vue'),
             }
         ]
     },
