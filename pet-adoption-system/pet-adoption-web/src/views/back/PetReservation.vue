@@ -101,7 +101,7 @@ const pageSizeArr = ref([10, 20, 30, 40])// 定义每页显示的评论数量选
 const total = ref(0)// 定义评论总数
 const selectRow = ref({})// 定义当前选中的评论对象
 const myDrawerRef = ref()// 创建MyDrawer组件的引用
-const pageRequest = ref({ pageNum: 1, pageSize: 10, q: {} })// 定义分页请求参数的对象，包括当前页码、每页数量以及查询条件（q）
+const pageRequest = ref({ pageNum: 1, pageSize: 10, q: {} })// 定义分页请求参数的对象，包括当前页码、每页数量以及查询条件
 const delIds = ref([])// 定义要批量删除的评论id数组
 const tableData = ref([])// 定义数据源，用于存储评论列表数据
 
