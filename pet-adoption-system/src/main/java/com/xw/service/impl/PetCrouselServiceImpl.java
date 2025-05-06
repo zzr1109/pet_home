@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PetCrouselServiceimpl implements PetCrouselService {
+public class PetCrouselServiceImpl implements PetCrouselService {
     @Resource
     private PetCrouselDao petCrouselDao;
     @Override
