@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xw.dao.PetReservationDao">
+    <resultMap id="dataMap" type="com.xw.entity.PetReservation">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userImage" column="user_image"/>
+        <result property="createTime" column="create_time"/>
+        <result property="remark" column="remark"/>
+        <result property="petCenterId" column="pet_center_id"/>
+        <result property="petCenterName" column="pet_center_name"/>
+        <result property="status" column="status"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userAddress" column="user_address"/>
+
+    </resultMap>
+
+    <sql id="allColumn">
+        id,user_id,user_name,user_image,create_time,remark,pet_center_id,pet_center_name,status,user_phone,user_address
+    </sql>
+
+    <!--添加语句的字段列表 insert into xxx set (image_url_list,show_status) values (#{xxxx},#{xxx})-->
+    <sql id="insertColumn">
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="userName != null and userName != ''">
+            user_name,
+        </if>
+        <if test="userImage != null and userImage != ''">
+            user_image,
+        </if>
+        <if test="createTime != null">
+            create_time,
+        </if>
+        <if test="remark != null and remark != ''">
+            remark,
+        </if>
+        <if test="petCenterId != null">
+            pet_center_id,
+        </if>
+        <if test="petCenterName != null and petCenterName != ''">
+            pet_center_name,
+        </if>
+        <if test="status != null">
+            status,
+        </if>
+        <if test="userPhone != null and userPhone != ''">
+            user_phone,
+        </if>
+        <if test="userAddress != null and userAddress != ''">
+            user_address,
+        </if>
+    </sql>
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="userName != null and userName != ''">
+            #{userName},
+        </if>
+        <if test="userImage != null and userImage != ''">
+            #{userImage},
+        </if>
+        <if test="createTime != null">
+            #{createTime},
+        </if>
+        <if test="remark != null and remark != ''">
+            #{remark},
+        </if>
+        <if test="petCenterId != null">
+            #{petCenterId},
+        </if>
+        <if test="petCenterName != null and petCenterName != ''">
+            #{petCenterName},
+        </if>
+        <if test="status != null">
+            #{status},
+        </if>
+        <if test="userPhone != null and userPhone != ''">
+            #{userPhone},
+        </if>
+        <if test="userAddress != null and userAddress != ''">
+            #{userAddress},
+        </if>
+    </sql>
+
+    <!--修改语句的字段列表 update xxx image_url_list = #{xxx} where id = #{}-->
+    <sql id="updateValue">
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="userName != null and userName != ''">
+            user_name = #{userName},
+        </if>
+        <if test="userImage != null and userImage != ''">
+            user_image = #{userImage},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime},
+        </if>
+        <if test="remark != null and remark != ''">
+            remark = #{remark},
+        </if>
+        <if test="petCenterId != null">
+            pet_center_id = #{petCenterId},
+        </if>
+        <if test="petCenterName != null and petCenterName != ''">
+            pet_center_name = #{petCenterName},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        <if test="userPhone != null and userPhone != ''">
+            user_phone = #{userPhone},
+        </if>
+        <if test="userAddress != null and userAddress != ''">
+            user_address = #{userAddress},
+        </if>
+    </sql>
+
+    <!--查询语句的字段列表 select xxx  from xx where id-->
+    <sql id="commonsValue">
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="userName != null and userName != ''">
+            and user_name = #{userName}
+        </if>
+        <if test="userImage != null and userImage != ''">
+            and user_image = #{userImage}
+        </if>
+        <if test="createTime != null">
+            and create_time = #{createTime}
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark = #{remark}
+        </if>
+        <if test="petCenterId != null">
+            and pet_center_id = #{petCenterId}
+        </if>
+        <if test="petCenterName != null and petCenterName != ''">
+            and pet_center_name = #{petCenterName}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="userPhone != null and userPhone != ''">
+            and user_phone = #{userPhone}
+        </if>
+        <if test="userAddress != null and userAddress != ''">
+            and user_address = #{userAddress}
+        </if>
+    </sql>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into pet_reservation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"></include>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"></include>
+        </trim>
+    </insert>
+
+    <delete id="deleteById">
+        delete from pet_reservation
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+
+    <delete id="deleteBatchByIds">
+        <if test="ids != null and ids.size() > 0">
+            delete from pet_reservation
+            where id in <foreach collection="ids" separator="," open="(" close=")" item="item">#{item}</foreach>
+        </if>
+    </delete>
+
+    <select id="queryById" resultMap="dataMap">
+        select <include refid="allColumn"></include> from pet_reservation where id = #{id}
+    </select>
+
+    <select id="queryAll" resultMap="dataMap">
+        select <include refid="allColumn"></include> from pet_reservation
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        order by id desc
+    </select>
+
+    <select id="queryByAll" resultMap="dataMap">
+        select <include refid="allColumn"></include> from pet_reservation
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        order by id desc
+    </select>
+
+    <update id="updateById">
+        update pet_reservation
+        <set>
+            <include refid="updateValue"></include>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <update id="updateEntity">
+        update pet_reservation
+        set
+        user_id = #{userId},
+        user_name = #{userName},
+        user_image = #{userImage},
+        create_time = #{createTime},
+        remark = #{remark},
+        pet_center_id = #{petCenterId},
+        pet_center_name = #{petCenterName},
+        status = #{status},
+        user_phone = #{userPhone},
+        user_address = #{userAddress}
+        <where>
+            id = #{id}
+        </where>
+    </update>
+</mapper>
