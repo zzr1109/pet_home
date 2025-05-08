@@ -165,6 +165,9 @@
         <if test="petRemark != null and petRemark != ''">
             and pet_remark = #{petRemark}
         </if>
+        <if test="ids != null and ids.size()>0">
+            and id in <foreach collection="ids" open="(" close=")" separator="," item="item">#{item}</foreach>
+        </if>
     </sql>
 
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">

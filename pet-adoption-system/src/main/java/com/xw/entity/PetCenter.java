@@ -37,4 +37,5 @@ public class PetCenter {
         this.setUserName(userInfo.getNickName());
         this.setCreateTime(new Date());
     }
+    private List<Integer> ids;
 }
