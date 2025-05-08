@@ -26,4 +26,6 @@ public interface PetReservationDao {
     int updateEntity(PetReservation petReservation);
     // 批量删除
     void deleteBatchByIds(@Param("ids") List<Long> ids);
+
+    List<PetReservation> queryAllLimit10();
 }

@@ -191,6 +191,15 @@
         order by id desc
     </select>
 
+    <select id="queryAllLimit10" resultMap="dataMap">
+        select <include refid="allColumn"></include> from pet_reservation
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        order by id desc
+        limit 10;
+    </select>
+
     <select id="queryByAll" resultMap="dataMap">
         select <include refid="allColumn"></include> from pet_reservation
         <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
