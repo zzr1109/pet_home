@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xw.dao.OrderDetailCenterDao">
+    <!--project_info的映射结果集-->
+    <resultMap type="com.xw.entity.OrderDetailCenter" id="OrderDetailCenterMap">
+        <result property="id" column="id"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="number" column="number"/>
+        <result property="singlePrice" column="single_price"/>
+        <result property="goodsCenterId" column="goods_center_id"/>
+        <result property="orderCenterId" column="order_center_id"/>
+        <result property="orderNumber" column="order_number"/>
+    </resultMap>
+    <!--全部字段-->
+    <sql id="allColumn">
+        id,goods_name,number,single_price,goods_center_id,order_center_id,order_number
+    </sql>
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="goodsName != null and goodsName != ''">
+            goods_name,
+        </if>
+        <if test="number != null">
+            number,
+        </if>
+        <if test="singlePrice != null">
+            single_price,
+        </if>
+        <if test="goodsCenterId != null">
+            goods_center_id,
+        </if>
+        <if test="orderCenterId != null">
+            order_center_id,
+        </if>
+        <if test="orderNumber != null and orderNumber != ''">
+            order_number,
+        </if>
+    </sql>
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="goodsName != null and goodsName != ''">
+            #{goodsName},
+        </if>
+        <if test="number != null">
+            #{number},
+        </if>
+        <if test="singlePrice != null">
+            #{singlePrice},
+        </if>
+        <if test="goodsCenterId != null">
+            #{goodsCenterId},
+        </if>
+        <if test="orderCenterId != null">
+            #{orderCenterId},
+        </if>
+        <if test="orderNumber != null and orderNumber != ''">
+            #{orderNumber},
+        </if>
+    </sql>
+    <!--修改-->
+    <sql id="updateValue">
+        <if test="goodsName != null and goodsName != ''">
+            goods_name = #{goodsName},
+        </if>
+        <if test="number != null">
+            number = #{number},
+        </if>
+        <if test="singlePrice != null">
+            single_price = #{singlePrice},
+        </if>
+        <if test="goodsCenterId != null">
+            goods_center_id = #{goodsCenterId},
+        </if>
+        <if test="orderCenterId != null">
+            order_center_id = #{orderCenterId},
+        </if>
+        <if test="orderNumber != null and orderNumber != ''">
+            order_number = #{orderNumber},
+        </if>
+    </sql>
+    <!--通用对ProjectInfo各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="goodsName != null and goodsName != ''">
+            and goods_name = #{goodsName}
+        </if>
+        <if test="number != null">
+            and number = #{number}
+        </if>
+        <if test="singlePrice != null">
+            and single_price = #{singlePrice}
+        </if>
+        <if test="goodsCenterId != null">
+            and goods_center_id = #{goodsCenterId}
+        </if>
+        <if test="orderCenterId != null">
+            and order_center_id = #{orderCenterId}
+        </if>
+        <if test="orderNumber != null and orderNumber != ''">
+            and order_number = #{orderNumber}
+        </if>
+    </sql>
+    <!--新增project_info:哪个字段不为空就添加哪列数据,返回自增主键-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into order_detail_center
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+    <!--删除project_info:通过主键-->
+    <delete id="deleteById">
+        delete from order_detail_center
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+    <delete id="deleteBatchByIds">
+        <if test="ids != null and ids.size() > 0">
+            delete from order_detail_center
+            where id in <foreach collection="ids" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        </if>
+    </delete>
+    <!--查询单个project_info-->
+    <select id="queryById" resultMap="OrderDetailCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from order_detail_center
+        <where>
+            id = #{id}
+        </where>
+    </select>
+    <select id="queryAllByLimit" resultMap="OrderDetailCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from order_detail_center
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderDetailCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from order_detail_center
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        order by id desc
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryByAll" resultMap="OrderDetailCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from order_detail_center
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+    </select>
+    <!--通过主键修改数据-->
+    <update id="updateById">
+        update order_detail_center
+        <set>
+            <include refid="updateValue"></include>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <update id="updateEntity">
+        update order_detail_center
+        set goods_name = #{goodsName},number = #{number},single_price = #{singlePrice},goods_center_id = #{goodsCenterId},order_center_id = #{orderCenterId},order_number = #{orderNumber}
+        <where>
+            id = #{id}
+        </where>
+    </update>
+</mapper>

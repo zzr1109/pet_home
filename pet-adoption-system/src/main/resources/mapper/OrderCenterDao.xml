@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xw.dao.OrderCenterDao">
+    <!--project_info的映射结果集-->
+    <resultMap type="com.xw.entity.OrderCenter" id="OrderCenterMap">
+        <result property="id" column="id"/>
+        <result property="orderPrice" column="order_price"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userImage" column="user_image"/>
+        <result property="status" column="status"/>
+        <result property="payMode" column="pay_mode"/>
+        <result property="orderNumber" column="order_number"/>
+    </resultMap>
+    <!--全部字段-->
+    <sql id="allColumn">
+        id,order_price,user_id,user_name,user_image,status,pay_mode,order_number
+    </sql>
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="orderPrice != null">
+            order_price,
+        </if>
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="userName != null and userName != ''">
+            user_name,
+        </if>
+        <if test="userImage != null and userImage != ''">
+            user_image,
+        </if>
+        <if test="status != null">
+            status,
+        </if>
+        <if test="payMode != null and payMode != ''">
+            pay_mode,
+        </if>
+        <if test="orderNumber != null and orderNumber != ''">
+            order_number,
+        </if>
+    </sql>
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="orderPrice != null">
+            #{orderPrice},
+        </if>
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="userName != null and userName != ''">
+            #{userName},
+        </if>
+        <if test="userImage != null and userImage != ''">
+            #{userImage},
+        </if>
+        <if test="status != null">
+            #{status},
+        </if>
+        <if test="payMode != null and payMode != ''">
+            #{payMode},
+        </if>
+        <if test="orderNumber != null and orderNumber != ''">
+            #{orderNumber},
+        </if>
+    </sql>
+    <!--修改-->
+    <sql id="updateValue">
+        <if test="orderPrice != null">
+            order_price = #{orderPrice},
+        </if>
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="userName != null and userName != ''">
+            user_name = #{userName},
+        </if>
+        <if test="userImage != null and userImage != ''">
+            user_image = #{userImage},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        <if test="payMode != null and payMode != ''">
+            pay_mode = #{payMode},
+        </if>
+        <if test="orderNumber != null and orderNumber != ''">
+            order_number = #{orderNumber},
+        </if>
+    </sql>
+    <!--通用对ProjectInfo各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="orderPrice != null">
+            and order_price = #{orderPrice}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="userName != null and userName != ''">
+            and user_name = #{userName}
+        </if>
+        <if test="userImage != null and userImage != ''">
+            and user_image = #{userImage}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="payMode != null and payMode != ''">
+            and pay_mode = #{payMode}
+        </if>
+        <if test="orderNumber != null and orderNumber != ''">
+            and order_number = #{orderNumber}
+        </if>
+    </sql>
+    <!--新增project_info:哪个字段不为空就添加哪列数据,返回自增主键-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into order_center
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+    <!--删除project_info:通过主键-->
+    <delete id="deleteById">
+        delete from order_center
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+    <delete id="deleteBatchByIds">
+        <if test="ids != null and ids.size() > 0">
+            delete from order_center
+            where id in <foreach collection="ids" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        </if>
+    </delete>
+    <!--查询单个project_info-->
+    <select id="queryById" resultMap="OrderCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from order_center
+        <where>
+            id = #{id}
+        </where>
+    </select>
+    <select id="queryAllByLimit" resultMap="OrderCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from order_center
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from order_center
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        order by id desc
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryByAll" resultMap="OrderCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from order_center
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+    </select>
+    <!--通过主键修改数据-->
+    <update id="updateById">
+        update order_center
+        <set>
+            <include refid="updateValue"></include>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <update id="updateEntity">
+        update order_center
+        set order_price = #{orderPrice},user_id = #{userId},user_name = #{userName},user_image = #{userImage},status = #{status},pay_mode = #{payMode},order_number = #{orderNumber}
+        <where>
+            id = #{id}
+        </where>
+    </update>
+</mapper>

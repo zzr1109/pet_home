@@ -1,31 +1,54 @@
 package com.xw.dao;
-
 import com.xw.entity.PetReservation;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
-
 @Mapper
 public interface PetReservationDao {
-    // 插入语句
+    /**
+     * @param petReservation 实例对象
+     * @return 影响行数
+     * @Description 添加PetReservation
+     */
     int insert(PetReservation petReservation);
-    // 通过主键ID删除
-    int deleteById(Long id);
-    // 通过主键ID查询
-    PetReservation queryById(Long id);
-    // 查询所有 (无参)
+    /**
+     * @param id 主键
+     * @return 影响行数
+     * @Description 删除PetReservation
+     */
+    int deleteById(Integer id);
+    /**
+     * @param id 主键
+     * @return 实例对象
+     * @Description 查询单条数据
+     */
+    PetReservation queryById(Integer id);
+    /**
+     * @return 对象列表
+     * @Description 查询全部数据
+     * 分页使用MyBatis的插件实现
+     */
     List<PetReservation> queryAll();
-    // 查询所有 (有参)
+    /**
+     * @param petReservation 实例对象
+     * @return 对象列表
+     * @Description 实体作为筛选条件查询数据
+     */
     List<PetReservation> queryAll(PetReservation petReservation);
-    // 通过条件查询单条数据
-    PetReservation queryByAll(PetReservation petReservation);
-    // 通过ID修改 （有判断语句的）
+    /**
+     * @param 根据petReservation的主键修改数据
+     * @return 影响行数
+     * @Description 修改PetReservation
+     */
     int updateById(PetReservation petReservation);
-    // 通过ID修改 （没有判断语句的）
     int updateEntity(PetReservation petReservation);
-    // 批量删除
-    void deleteBatchByIds(@Param("ids") List<Long> ids);
+    PetReservation queryByAll(PetReservation petReservation);
+    void deleteBatchByIds(@Param("ids") List<Integer> ids);
+
+    @Update("update pet_reservation set status = 4 where user_id=#{userId} and pet_center_id = #{petCenterId} and status = 2")
+    void updateByUserIdAndPetId(Integer userId, Integer petCenterId);
 
     List<PetReservation> queryAllLimit10();
 }

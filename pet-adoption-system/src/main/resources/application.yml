@@ -17,9 +17,9 @@ spring:
       max-request-size: 100MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/pet-adoption?serverTimezone=GMT%2b8
+    url: jdbc:mysql://localhost:3306/pet_adoption?serverTimezone=GMT%2b8
     username: root
-    password: tw19960705
+    password: 123456
 
 # springdoc-openapi项目配置
 springdoc:

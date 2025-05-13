@@ -1,76 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ae432cc-71a3-420f-8d1f-d8f30fa571f0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pet-adoption-plat/src/views/web/PersonalCenter/PersonalCenter.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-adoption-plat/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pet-adoption-plat/src/router/index.js" afterDir="false" />
-    </list>
+    <list default="true" id="9bde6165-8b88-4f19-98e8-bda0ea8a1db1" name="更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
-  </component>
-  <component name="ProjectId" id="2vvvRrWHo89RPXnqdVXhgS7OdsL" />
+  <component name="ProjectId" id="2vqP25Elkqs4QutSpH6njF6avZl" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pet-adoption-system" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pet_home" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="8ae432cc-71a3-420f-8d1f-d8f30fa571f0" name="Default Changelist" comment="" />
-      <created>1745038356364</created>
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="9bde6165-8b88-4f19-98e8-bda0ea8a1db1" name="更改" comment="" />
+      <created>1744869421062</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1745038356364</updated>
-      <workItem from="1745038357707" duration="234000" />
-      <workItem from="1745038603581" duration="9000" />
-      <workItem from="1745040757756" duration="609000" />
-      <workItem from="1745226368573" duration="210000" />
-      <workItem from="1745239342459" duration="2465000" />
-      <workItem from="1745313298770" duration="3403000" />
-      <workItem from="1745855793110" duration="176000" />
-      <workItem from="1745933324515" duration="988000" />
-      <workItem from="1745939908508" duration="275000" />
-      <workItem from="1747137454563" duration="1210000" />
+      <updated>1744869421062</updated>
+      <workItem from="1745114606387" duration="54000" />
+      <workItem from="1745114699413" duration="119000" />
+      <workItem from="1745114836730" duration="125000" />
+      <workItem from="1745115044979" duration="123000" />
+      <workItem from="1745118846342" duration="4060000" />
+      <workItem from="1745200103753" duration="2759000" />
+      <workItem from="1745249416688" duration="758000" />
     </task>
     <servers />
   </component>

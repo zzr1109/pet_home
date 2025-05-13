@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xw.dao.PetAdoptionCenterDao">
-    <resultMap id="dataMap" type="com.xw.entity.PetAdoptionCenter">
+    <!--project_info的映射结果集-->
+    <resultMap type="com.xw.entity.PetAdoptionCenter" id="PetAdoptionCenterMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="userName" column="user_name"/>
         <result property="userImage" column="user_image"/>
-        <result property="petCenterId" column="pet_center_id"/>
-        <result property="petCenterName" column="pet_center_name"/>
         <result property="userPhone" column="user_phone"/>
         <result property="userAddress" column="user_address"/>
+        <result property="petCenterId" column="pet_center_id"/>
+        <result property="petCenterName" column="pet_center_name"/>
         <result property="adoptionStatus" column="adoption_status"/>
-
     </resultMap>
-
+    <!--全部字段-->
     <sql id="allColumn">
-        id,user_id,user_name,user_image,pet_center_id,pet_center_name,user_phone,user_address,adoption_status
+        id,user_id,user_name,user_image,user_phone,user_address,pet_center_id,pet_center_name,adoption_status
     </sql>
-
-    <!--添加语句的字段列表 insert into xxx set (image_url_list,show_status) values (#{xxxx},#{xxx})-->
+    <!--添加语句的字段列表-->
     <sql id="insertColumn">
         <if test="userId != null">
             user_id,
@@ -29,17 +28,17 @@
         <if test="userImage != null and userImage != ''">
             user_image,
         </if>
-        <if test="petCenterId != null">
-            pet_center_id,
-        </if>
-        <if test="petCenterName != null and petCenterName != ''">
-            pet_center_name,
-        </if>
         <if test="userPhone != null and userPhone != ''">
             user_phone,
         </if>
         <if test="userAddress != null and userAddress != ''">
             user_address,
+        </if>
+        <if test="petCenterId != null">
+            pet_center_id,
+        </if>
+        <if test="petCenterName != null and petCenterName != ''">
+            pet_center_name,
         </if>
         <if test="adoptionStatus != null">
             adoption_status,
@@ -56,24 +55,23 @@
         <if test="userImage != null and userImage != ''">
             #{userImage},
         </if>
-        <if test="petCenterId != null">
-            #{petCenterId},
-        </if>
-        <if test="petCenterName != null and petCenterName != ''">
-            #{petCenterName},
-        </if>
         <if test="userPhone != null and userPhone != ''">
             #{userPhone},
         </if>
         <if test="userAddress != null and userAddress != ''">
             #{userAddress},
         </if>
+        <if test="petCenterId != null">
+            #{petCenterId},
+        </if>
+        <if test="petCenterName != null and petCenterName != ''">
+            #{petCenterName},
+        </if>
         <if test="adoptionStatus != null">
             #{adoptionStatus},
         </if>
     </sql>
-
-    <!--修改语句的字段列表 update xxx image_url_list = #{xxx} where id = #{}-->
+    <!--修改-->
     <sql id="updateValue">
         <if test="userId != null">
             user_id = #{userId},
@@ -84,24 +82,23 @@
         <if test="userImage != null and userImage != ''">
             user_image = #{userImage},
         </if>
-        <if test="petCenterId != null">
-            pet_center_id = #{petCenterId},
-        </if>
-        <if test="petCenterName != null and petCenterName != ''">
-            pet_center_name = #{petCenterName},
-        </if>
         <if test="userPhone != null and userPhone != ''">
             user_phone = #{userPhone},
         </if>
         <if test="userAddress != null and userAddress != ''">
             user_address = #{userAddress},
         </if>
+        <if test="petCenterId != null">
+            pet_center_id = #{petCenterId},
+        </if>
+        <if test="petCenterName != null and petCenterName != ''">
+            pet_center_name = #{petCenterName},
+        </if>
         <if test="adoptionStatus != null">
             adoption_status = #{adoptionStatus},
         </if>
     </sql>
-
-    <!--查询语句的字段列表 select xxx  from xx where id-->
+    <!--通用对ProjectInfo各个属性的值的非空判断-->
     <sql id="commonsValue">
         <if test="userId != null">
             and user_id = #{userId}
@@ -112,67 +109,81 @@
         <if test="userImage != null and userImage != ''">
             and user_image = #{userImage}
         </if>
-        <if test="petCenterId != null">
-            and pet_center_id = #{petCenterId}
-        </if>
-        <if test="petCenterName != null and petCenterName != ''">
-            and pet_center_name = #{petCenterName}
-        </if>
         <if test="userPhone != null and userPhone != ''">
             and user_phone = #{userPhone}
         </if>
         <if test="userAddress != null and userAddress != ''">
             and user_address = #{userAddress}
         </if>
+        <if test="petCenterId != null">
+            and pet_center_id = #{petCenterId}
+        </if>
+        <if test="petCenterName != null and petCenterName != ''">
+            and pet_center_name = #{petCenterName}
+        </if>
         <if test="adoptionStatus != null">
             and adoption_status = #{adoptionStatus}
         </if>
     </sql>
-
+    <!--新增project_info:哪个字段不为空就添加哪列数据,返回自增主键-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into pet_adoption_center
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <include refid="insertColumn"></include>
+            <include refid="insertColumn"/>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <include refid="insertValue"></include>
+            <include refid="insertValue"/>
         </trim>
     </insert>
-
+    <!--删除project_info:通过主键-->
     <delete id="deleteById">
         delete from pet_adoption_center
         <where>
             id = #{id}
         </where>
     </delete>
-
     <delete id="deleteBatchByIds">
         <if test="ids != null and ids.size() > 0">
             delete from pet_adoption_center
-            where id in <foreach collection="ids" separator="," open="(" close=")" item="item">#{item}</foreach>
+            where id in <foreach collection="ids" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
         </if>
     </delete>
-
-    <select id="queryById" resultMap="dataMap">
-        select <include refid="allColumn"></include> from pet_adoption_center where id = #{id}
+    <!--查询单个project_info-->
+    <select id="queryById" resultMap="PetAdoptionCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from pet_adoption_center
+        <where>
+            id = #{id}
+        </where>
     </select>
-
-    <select id="queryAll" resultMap="dataMap">
-        select <include refid="allColumn"></include> from pet_adoption_center
+    <select id="queryAllByLimit" resultMap="PetAdoptionCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from pet_adoption_center
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PetAdoptionCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from pet_adoption_center
         <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
             <include refid="commonsValue"></include>
         </trim>
         order by id desc
     </select>
-
-    <select id="queryByAll" resultMap="dataMap">
-        select <include refid="allColumn"></include> from pet_adoption_center
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryByAll" resultMap="PetAdoptionCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from pet_adoption_center
         <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
             <include refid="commonsValue"></include>
         </trim>
-        order by id desc
     </select>
-
+    <!--通过主键修改数据-->
     <update id="updateById">
         update pet_adoption_center
         <set>
@@ -182,18 +193,9 @@
             id = #{id}
         </where>
     </update>
-
     <update id="updateEntity">
         update pet_adoption_center
-        set
-        user_id = #{userId},
-        user_name = #{userName},
-        user_image = #{userImage},
-        pet_center_id = #{petCenterId},
-        pet_center_name = #{petCenterName},
-        user_phone = #{userPhone},
-        user_address = #{userAddress},
-        adption_status = #{adoptionStatus}
+        set user_id = #{userId},user_name = #{userName},user_image = #{userImage},user_phone = #{userPhone},user_address = #{userAddress},pet_center_id = #{petCenterId},pet_center_name = #{petCenterName},adoption_status = #{adoptionStatus}
         <where>
             id = #{id}
         </where>

@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @RequestMapping("data")
 @Tag(name = "统计模块")
 public class DataController {
-
     @Resource
     private PetCenterDao petCenterDao;
 
@@ -34,8 +33,15 @@ public class DataController {
     @Resource
     private PetCategoryDao petCategoryDao;
 
+    @Resource
+    private OrderCenterDao orderCenterDao;
+
+    @Resource
+    private GoodsCenterDao goodsCenterDao;
+
+
     @GetMapping("petClassificationPieChart")
-    @Operation(summary = "宠物统计饼图")
+    @Operation(summary = "宠物分类饼图")
     public Result<?> petClassificationPieChart() {
         List<PetCenter> petCenters = petCenterDao.queryAll();
         Map<String, List<PetCenter>> maps = petCenters.stream().collect(Collectors.groupingBy(PetCenter::getPetCategoryName));
@@ -63,6 +69,7 @@ public class DataController {
             petCenterList = petCenterDao.queryAll(petCenter);
         }
 
+
         List<PetCategory> petCategories = petCategoryDao.queryAll();
         // 条目
         List<String> entryList = petCategories.stream().map(PetCategory::getCategory).collect(Collectors.toList());
@@ -80,7 +87,20 @@ public class DataController {
         Map<String,Object> map = new HashMap<>();
         map.put("entryList",entryList);
         map.put("dataList",dataList);
-        return new Result<>(map,Constants.SUCCESS);
+        return new Result<>(map, Constants.SUCCESS);
     }
 
+    @GetMapping("dataStatistics")
+    @Operation(summary = "数据统计")
+    public Result<?> dataStatistics() {
+        List<OrderCenter> orderCenters = orderCenterDao.queryAll();
+        Map<String,Object> map = new HashMap<>();
+        map.put("orderPrice",orderCenters.stream().map(OrderCenter::getOrderPrice).reduce((m,n) -> m.add(n)).orElse(BigDecimal.ZERO));
+        map.put("orderNum",orderCenters.stream().count());
+        List<GoodsCenter> goodsCenters = goodsCenterDao.queryAll();
+        map.put("goodsNum",goodsCenters.stream().count());
+        List<PetCenter> petCenters = petCenterDao.queryAll();
+        map.put("petNum",petCenters.stream().count());
+        return new Result<>(map,Constants.SUCCESS);
+    }
 }

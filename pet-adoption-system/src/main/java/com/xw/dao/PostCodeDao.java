@@ -1,29 +1,47 @@
 package com.xw.dao;
-
 import com.xw.entity.PostCode;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
-
 @Mapper
 public interface PostCodeDao {
-    // 插入语句
+    /**
+     * @param postCode 实例对象
+     * @return 影响行数
+     * @Description 添加PostCode
+     */
     int insert(PostCode postCode);
-    // 通过主键ID删除
+    /**
+     * @param id 主键
+     * @return 影响行数
+     * @Description 删除PostCode
+     */
     int deleteById(Integer id);
-    // 通过主键ID查询
+    /**
+     * @param id 主键
+     * @return 实例对象
+     * @Description 查询单条数据
+     */
     PostCode queryById(Integer id);
-    // 查询所有 (无参)
+    /**
+     * @return 对象列表
+     * @Description 查询全部数据
+     * 分页使用MyBatis的插件实现
+     */
     List<PostCode> queryAll();
-    // 查询所有 (有参)
+    /**
+     * @param postCode 实例对象
+     * @return 对象列表
+     * @Description 实体作为筛选条件查询数据
+     */
     List<PostCode> queryAll(PostCode postCode);
-    // 通过条件查询单条数据
-    PostCode queryByAll(PostCode postCode);
-    // 通过ID修改 （有判断语句的）
+    /**
+     * @param 根据postCode的主键修改数据
+     * @return 影响行数
+     * @Description 修改PostCode
+     */
     int updateById(PostCode postCode);
-    // 通过ID修改 （没有判断语句的）
     int updateEntity(PostCode postCode);
-    // 批量删除
+    PostCode queryByAll(PostCode postCode);
     void deleteBatchByIds(@Param("ids") List<Integer> ids);
 }

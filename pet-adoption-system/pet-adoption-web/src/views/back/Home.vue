@@ -1,7 +1,4 @@
 <template>
-    首页设计中，代码中需要删除后续注释(视图层那部分需要再加上注释)
-</template>
-<!-- <template>
     <div>
         <div class="topNav">
             <div class="iconName">
@@ -17,7 +14,7 @@
             <div class="leftSidebar">
                 <LeftMenu></LeftMenu>
             </div>
-            视图层
+            <!--视图层-->
             <div style="padding: 10px;width: calc(100vw - 240px);">
                 <el-page-header icon="" @back="router.go(-1)">
                     <template #content>
@@ -98,4 +95,4 @@ const logout = async () => {
         }
     }
 }
-</style> -->
+</style>

@@ -9,16 +9,19 @@ const routes = [
         component: () => import('../views/web/WebHome.vue'),
         children: [
             {
-                path: '/petList',
-                meta: {menuName: "主页"},
+                path: '/PetList',
                 name: 'petList',
-                component: () => import('../views/web/Pet/PetList.vue'),
+                component: () => import('@/views/web/Pet/PetList.vue'),
             },
             {
-                path: '/petCircle',
-                meta: {menuName: "宠物圈"},
+                path: '/PetGoods',
+                name: 'petGoods',
+                component: () => import('@/views/web/PetGoods/PetGoods.vue'),
+            },
+            {
+                path: '/PetCircle',
                 name: 'petCircle',
-                component: () => import('../views/web/PetCircle/PetCircle.vue'),
+                component: () => import('@/views/web/PetCircle/PetCircle.vue'),
             },
             {
                 path: '/PersonalCenter',
@@ -47,7 +50,7 @@ router.beforeEach((to, from, next) => {
     else {
         if (!user || to.path === "/") {
             localStorage.clear()
-            next("/petList")
+            next("/PetList")
         } else {
             next();
         }

@@ -7,6 +7,7 @@ import { openLogin } from "@/plugins/LoginDialog.js";
 const http = {}
 
 export const baseURL = function () {
+    // return "http://localhost:16667";
     return "http://localhost:6677";
 
 }

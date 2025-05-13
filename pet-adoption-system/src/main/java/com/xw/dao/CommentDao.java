@@ -1,29 +1,51 @@
 package com.xw.dao;
-
 import com.xw.entity.Comment;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
-
 @Mapper
 public interface CommentDao {
-    // 插入语句
+    /**
+     * @param comment 实例对象
+     * @return 影响行数
+     * @Description 添加Comment
+     */
     int insert(Comment comment);
-    // 通过主键ID删除
+    /**
+     * @param id 主键
+     * @return 影响行数
+     * @Description 删除Comment
+     */
     int deleteById(Long id);
-    // 通过主键ID查询
+    /**
+     * @param id 主键
+     * @return 实例对象
+     * @Description 查询单条数据
+     */
     Comment queryById(Long id);
-    // 查询所有 (无参)
+    /**
+     * @return 对象列表
+     * @Description 查询全部数据
+     * 分页使用MyBatis的插件实现
+     */
     List<Comment> queryAll();
-    // 查询所有 (有参)
+    /**
+     * @param comment 实例对象
+     * @return 对象列表
+     * @Description 实体作为筛选条件查询数据
+     */
     List<Comment> queryAll(Comment comment);
-    // 通过条件查询单条数据
-    Comment queryByAll(Comment comment);
-    // 通过ID修改 （有判断语句的）
+    /**
+     * @param 根据comment的主键修改数据
+     * @return 影响行数
+     * @Description 修改Comment
+     */
     int updateById(Comment comment);
-    // 通过ID修改 （没有判断语句的）
     int updateEntity(Comment comment);
-    // 批量删除
+    Comment queryByAll(Comment comment);
     void deleteBatchByIds(@Param("ids") List<Long> ids);
+
+    @Delete("delete from comment where type_id = #{typeId} and type = #{type}")
+    void deleteByTypeAndTypeId(int type, Integer typeId);
 }

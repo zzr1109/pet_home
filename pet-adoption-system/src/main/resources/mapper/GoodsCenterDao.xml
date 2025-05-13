@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xw.dao.GoodsCenterDao">
+    <!--project_info的映射结果集-->
+    <resultMap type="com.xw.entity.GoodsCenter" id="GoodsCenterMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="imageUrlList" column="image_url_list"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userImage" column="user_image"/>
+        <result property="price" column="price"/>
+        <result property="stockNumber" column="stock_number"/>
+        <result property="buyNumber" column="buy_number"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+    <!--全部字段-->
+    <sql id="allColumn">
+        id,name,image_url_list,user_id,user_name,user_image,price,stock_number,buy_number,remark
+    </sql>
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="name != null and name != ''">
+            name,
+        </if>
+        <if test="imageUrlList != null and imageUrlList != ''">
+            image_url_list,
+        </if>
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="userName != null and userName != ''">
+            user_name,
+        </if>
+        <if test="userImage != null and userImage != ''">
+            user_image,
+        </if>
+        <if test="price != null">
+            price,
+        </if>
+        <if test="stockNumber != null">
+            stock_number,
+        </if>
+        <if test="buyNumber != null">
+            buy_number,
+        </if>
+        <if test="remark != null and remark != ''">
+            remark,
+        </if>
+    </sql>
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="name != null and name != ''">
+            #{name},
+        </if>
+        <if test="imageUrlList != null and imageUrlList != ''">
+            #{imageUrlList},
+        </if>
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="userName != null and userName != ''">
+            #{userName},
+        </if>
+        <if test="userImage != null and userImage != ''">
+            #{userImage},
+        </if>
+        <if test="price != null">
+            #{price},
+        </if>
+        <if test="stockNumber != null">
+            #{stockNumber},
+        </if>
+        <if test="buyNumber != null">
+            #{buyNumber},
+        </if>
+        <if test="remark != null and remark != ''">
+            #{remark},
+        </if>
+    </sql>
+    <!--修改-->
+    <sql id="updateValue">
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="imageUrlList != null and imageUrlList != ''">
+            image_url_list = #{imageUrlList},
+        </if>
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="userName != null and userName != ''">
+            user_name = #{userName},
+        </if>
+        <if test="userImage != null and userImage != ''">
+            user_image = #{userImage},
+        </if>
+        <if test="price != null">
+            price = #{price},
+        </if>
+        <if test="stockNumber != null">
+            stock_number = #{stockNumber},
+        </if>
+        <if test="buyNumber != null">
+            buy_number = #{buyNumber},
+        </if>
+        <if test="remark != null and remark != ''">
+            remark = #{remark},
+        </if>
+    </sql>
+    <!--通用对ProjectInfo各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="name != null and name != ''">
+            and name like concat('%',#{name},'%')
+        </if>
+        <if test="imageUrlList != null and imageUrlList != ''">
+            and image_url_list = #{imageUrlList}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="userName != null and userName != ''">
+            and user_name = #{userName}
+        </if>
+        <if test="userImage != null and userImage != ''">
+            and user_image = #{userImage}
+        </if>
+        <if test="price != null">
+            and price = #{price}
+        </if>
+        <if test="stockNumber != null">
+            and stock_number = #{stockNumber}
+        </if>
+        <if test="buyNumber != null">
+            and buy_number = #{buyNumber}
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark = #{remark}
+        </if>
+        <if test="ids != null and ids.size() > 0">
+            and id in <foreach collection="ids" open="(" close=")" separator="," item="item">#{item}</foreach>
+        </if>
+    </sql>
+    <!--新增project_info:哪个字段不为空就添加哪列数据,返回自增主键-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into goods_center
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+    <!--删除project_info:通过主键-->
+    <delete id="deleteById">
+        delete from goods_center
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+    <delete id="deleteBatchByIds">
+        <if test="ids != null and ids.size() > 0">
+            delete from goods_center
+            where id in <foreach collection="ids" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        </if>
+    </delete>
+    <!--查询单个project_info-->
+    <select id="queryById" resultMap="GoodsCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from goods_center
+        <where>
+            id = #{id}
+        </where>
+    </select>
+    <select id="queryAllByLimit" resultMap="GoodsCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from goods_center
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="GoodsCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from goods_center
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+        order by id desc
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryByAll" resultMap="GoodsCenterMap">
+        select
+        <include refid="allColumn"></include>
+        from goods_center
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+    </select>
+    <!--通过主键修改数据-->
+    <update id="updateById">
+        update goods_center
+        <set>
+            <include refid="updateValue"></include>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <update id="updateEntity">
+        update goods_center
+        set name = #{name},image_url_list = #{imageUrlList},user_id = #{userId},user_name = #{userName},user_image = #{userImage},price = #{price},stock_number = #{stockNumber},buy_number = #{buyNumber},remark = #{remark}
+        <where>
+            id = #{id}
+        </where>
+    </update>
+</mapper>

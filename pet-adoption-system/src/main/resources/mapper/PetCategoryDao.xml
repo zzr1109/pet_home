@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xw.dao.PetCategoryDao">
-    <resultMap id="dataMap" type="com.xw.entity.PetCategory">
-        <result property="id" column="id" jdbcType="INTEGER"/>
+    <!--project_info的映射结果集-->
+    <resultMap type="com.xw.entity.PetCategory" id="PetCategoryMap">
+        <result property="id" column="id"/>
         <result property="category" column="category"/>
     </resultMap>
-
+    <!--全部字段-->
     <sql id="allColumn">
         id,category
     </sql>
-
-    <!--添加语句的字段列表 insert into xxx set (image_url_list,show_status) values (#{xxxx},#{xxx})-->
+    <!--添加语句的字段列表-->
     <sql id="insertColumn">
         <if test="category != null and category != ''">
             category,
@@ -22,65 +22,77 @@
             #{category},
         </if>
     </sql>
-
-    <!--修改语句的字段列表 update xxx image_url_list = #{xxx} where id = #{}-->
+    <!--修改-->
     <sql id="updateValue">
         <if test="category != null and category != ''">
             category = #{category},
         </if>
     </sql>
-
-    <!--查询语句的字段列表 select xxx  from xx where id-->
+    <!--通用对ProjectInfo各个属性的值的非空判断-->
     <sql id="commonsValue">
         <if test="category != null and category != ''">
             and category = #{category}
         </if>
     </sql>
-
+    <!--新增project_info:哪个字段不为空就添加哪列数据,返回自增主键-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into pet_category
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <include refid="insertColumn"></include>
+            <include refid="insertColumn"/>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <include refid="insertValue"></include>
+            <include refid="insertValue"/>
         </trim>
     </insert>
-
+    <!--删除project_info:通过主键-->
     <delete id="deleteById">
         delete from pet_category
         <where>
             id = #{id}
         </where>
     </delete>
-
     <delete id="deleteBatchByIds">
         <if test="ids != null and ids.size() > 0">
             delete from pet_category
-            where id in <foreach collection="ids" separator="," open="(" close=")" item="item">#{item}</foreach>
+            where id in <foreach collection="ids" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
         </if>
     </delete>
-
-    <select id="queryById" resultMap="dataMap">
-        select <include refid="allColumn"></include> from pet_category where id = #{id}
+    <!--查询单个project_info-->
+    <select id="queryById" resultMap="PetCategoryMap">
+        select
+        <include refid="allColumn"></include>
+        from pet_category
+        <where>
+            id = #{id}
+        </where>
     </select>
-
-    <select id="queryAll" resultMap="dataMap">
-        select <include refid="allColumn"></include> from pet_category
+    <select id="queryAllByLimit" resultMap="PetCategoryMap">
+        select
+        <include refid="allColumn"></include>
+        from pet_category
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PetCategoryMap">
+        select
+        <include refid="allColumn"></include>
+        from pet_category
         <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
             <include refid="commonsValue"></include>
         </trim>
         order by id desc
     </select>
-
-    <select id="queryByAll" resultMap="dataMap">
-        select <include refid="allColumn"></include> from pet_category
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryByAll" resultMap="PetCategoryMap">
+        select
+        <include refid="allColumn"></include>
+        from pet_category
         <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
             <include refid="commonsValue"></include>
         </trim>
-        order by id desc
     </select>
-
+    <!--通过主键修改数据-->
     <update id="updateById">
         update pet_category
         <set>
@@ -90,7 +102,6 @@
             id = #{id}
         </where>
     </update>
-
     <update id="updateEntity">
         update pet_category
         set category = #{category}

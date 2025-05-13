@@ -25,7 +25,6 @@
     "@iconify-json/mdi": "^1.2.0",
     "@types/node": "^22.5.5",
     "@vitejs/plugin-vue": "^5.1.2",
-    "crypto-browserify": "^3.12.1",
-    "vite": "^5.4.11"
+    "vite": "^5.3.1"
   }
 }

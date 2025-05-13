@@ -1,31 +1,38 @@
 package com.xw.entity;
-
-
-import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-
 import java.util.Date;
+import java.math.BigDecimal;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import java.util.List;
-
+import com.xw.entity.User;
+/**
+ * 宠物圈帖子管理
+ */
 @Data
 public class PostCode {
     private Integer id;
-    // 帖子内容
-    @NotBlank(message = "帖子内容不能为空")
+    @Schema(description = "发布内容")
+    @NotBlank(message = "发布内容不能为空!")
     private String content;
+    @Schema(description = "发布时间")
     private Date createTime;
-    private Integer userId;
-    private String userName;
-    private String userImage;
-    private String title;
     private String imageUrlList;
-    // 前端展示数组
     private List<String> menuImages;
-
-    public void setUserInfo(User userInfo) {
-        this.setUserId(userInfo.getId());
-        this.setUserName(userInfo.getUserName());
-        this.setUserImage(userInfo.getImageUrl());
-        this.setCreateTime(new Date());
+    @Schema(description = "发布人ID")
+    private Integer userId;
+    @Schema(description = "发布人名称")
+    private String userName;
+    @Schema(description = "发布人头像")
+    private String userImage;
+    @Schema(description = "发布标题")
+    private String title;
+    public void setUserInfo(User user) {
+        this.createTime=new Date();
+        this.userId=user.getId();
+        this.userName=user.getNickName();
+        this.userImage=user.getImageUrl();
     }
 }
