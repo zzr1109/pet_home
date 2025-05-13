@@ -19,6 +19,11 @@ const routes = [
                 meta: {menuName: "宠物圈"},
                 name: 'petCircle',
                 component: () => import('../views/web/PetCircle/PetCircle.vue'),
+            },
+            {
+                path: '/PersonalCenter',
+                name: 'personalCenter',
+                component: () => import('@/views/web/PersonalCenter/PersonalCenter.vue'),
             }
         ]
     },
